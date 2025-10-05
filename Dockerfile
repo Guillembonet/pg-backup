@@ -1,10 +1,10 @@
-FROM golang:1.21-alpine AS builder
+FROM golang:1.25-alpine3.22 AS builder
 
 WORKDIR /go/src/github.com/guillembonet/pg-backup
 ADD . .
 RUN go build -o build/pg-backup .
 
-FROM postgres:16.1-alpine3.18
+FROM postgres:17.6-alpine3.22
 
 RUN apk update && apk upgrade
 
