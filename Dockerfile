@@ -4,7 +4,7 @@ WORKDIR /go/src/github.com/guillembonet/pg-backup
 ADD . .
 RUN go build -o build/pg-backup .
 
-FROM postgres:17.6-alpine3.22
+FROM postgres:18.1-alpine3.22
 
 RUN apk update && apk upgrade
 
