@@ -8,6 +8,7 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/push"
+	"github.com/prometheus/common/expfmt"
 	"github.com/robfig/cron/v3"
 	"github.com/rs/zerolog/log"
 
@@ -212,7 +213,7 @@ func pushMetrics(pushGateway, job string, metric prometheus.Collector) error {
 		log.Warn().Msgf("push gateway not set, skipping metrics push")
 		return nil
 	}
-	err := push.New(pushGateway, job).Collector(metric).Push()
+	err := push.New(pushGateway, job).Collector(metric).Format(expfmt.NewFormat(expfmt.TypeTextPlain)).Push()
 	if err != nil {
 		return fmt.Errorf("error pushing metric: %w", err)
 	}
